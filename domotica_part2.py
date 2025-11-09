@@ -5,6 +5,7 @@ salon = False
 dormitori = False
 cuina = False
 co2_actual = 0
+limit = 300
 
 def menu_principal():
     while True:           
@@ -209,9 +210,13 @@ def alarma():
                             increment = random.randint(10, 25)
                             co2_actual += increment
                             print(f" Nivell actual de CO₂: {co2_actual} ppm")
+                            if limit is None:
+                                print("Primer has de configurar el límit (opció 1).")
+                            continue
                             if co2_actual > limit:
                                 print("Alarma! Nivell de CO₂ massa alt!")
-                            time.sleep(1)
+
+                                time.sleep(1)
                 except KeyboardInterrupt:
                     print("Simulació aturada per l'usuari.")
             case 3:
