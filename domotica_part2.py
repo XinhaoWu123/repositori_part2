@@ -176,7 +176,6 @@ def menu_alarma():
 
 
 def alarma():
-    global limit
     limit = None 
     while True:
         menu_alarma()
@@ -200,23 +199,21 @@ def alarma():
                     print("Entrada no vàlida.")
                     limit = None
 
-            case 2:
-                if limit is None:
-                    print("Primer has de configurar el límit (opció 1).")
-                    continue
-                try:
-                    global co2_actual
-                    co2_actual = float(input("Introdueix el nivell ACTUAL de CO₂ (ppm): "))
-                except ValueError:
-                    print("Entrada no vàlida.")
-                    continue
-                alarma_activada = co2_actual > limit
-                print("-" * 40)
-                print(f"Límit de CO₂ establert: {limit} ppm")
-                print(f"Nivell actual de CO₂: {co2_actual} ppm")
-                print(f"Alarma: {'ACTIVADA' if alarma_activada else 'DESACTIVADA'}")
-                print("-" * 40)
+            case "2":
+                print("Simulació de CO₂ iniciada. Prem Ctrl+C per aturar.")
 
+                try:
+                    for hora in range(0,24):
+                        for minut in range(0, 60):
+                            print(f"Hora actual: {hora}:{minut}")  
+                            increment = random.randint(10, 25)
+                            co2_actual += increment
+                            print(f" Nivell actual de CO₂: {co2_actual} ppm")
+                            if co2_actual > limit:
+                                print("Alarma! Nivell de CO₂ massa alt!")
+                            time.sleep(1)
+                except KeyboardInterrupt:
+                    print("Simulació aturada per l'usuari.")
             case 3:
                 print("Tornant al menú principal")
                 return
